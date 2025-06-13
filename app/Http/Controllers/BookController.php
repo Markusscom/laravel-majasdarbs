@@ -9,7 +9,7 @@ class BookController extends Controller
 {
     public function index() {
         $books = Book::all();
-        return view('books.index');
+        return view('books.index', ['books' => $books]);
     }
 
     public function create() {
@@ -17,33 +17,34 @@ class BookController extends Controller
     }
 
     public function store(Request $request) {
-        $book = Book::create([
-            'title' => $request['title'],
-            'author' => $request['author'],
-            'released_at' => $request['released_at'],
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'released_at' => 'required|date',
         ]);
 
-        return redirect('/books/' . $book->id);
+        $book = Book::create($validated);
+
+        return redirect(route('books.show' , $book))->with('status' , "Book created succesfully!");
     }
 
-    public function show($id) {
-        $book = Book::find($id);
+    public function show(Book $book) {
         return view('books.show', ['singleBook' => $book]);
     }
 
-    public function edit($id) {
-        $book = Book::find($id);
-        return $book;
+    public function edit(Book $book) {
+        return view('books.edit', ['editBook' => $book]);
     }
 
-    public function update(Request $request, $id) {
-        $book = Book::find($id);
-        $book->update([
-            'title' => $request['title'],
-            'author' => $request['author'],
-            'released_at' => $request['released_at'],
+    public function update(Request $request, Book $book) {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'released_at' => 'required|date',
         ]);
 
-        return redirect('/books/' . $book->id);
+        $book->update($validated);
+
+        return redirect(route('books.show' , $book))->with('status' , "Book updated succesfully!");
     }
 }
