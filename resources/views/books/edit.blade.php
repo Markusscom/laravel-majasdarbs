@@ -1,7 +1,7 @@
-<x-layout>
-<h1>Edit book</h1>
+<x-app-layout>
+<h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Edit book</h1>
 
-<form action="{{ route('books.update', $editBook->id) }}" method="post">
+<form action="{{ route('books.update', $editBook->id) }}" method="post" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     @csrf
     @method('put')
 
@@ -20,6 +20,6 @@
         <div style="color: red;">{{ $message }}</div>
     @enderror
 
-    <input type="submit" value="Update">
+    <input type="submit" value="Update" class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
 </form>
-</x-layout>
+</x-app-layout>
