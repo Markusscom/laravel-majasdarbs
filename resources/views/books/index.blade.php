@@ -1,3 +1,4 @@
+<x-layout>
 <h1>Books</h1>
 <a href="/books/create">Create a book</a>
 <ul>
@@ -11,3 +12,4 @@
         </li>
     @endforeach
 </ul>
+</x-layout>

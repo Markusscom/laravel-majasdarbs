@@ -1,3 +1,4 @@
+<x-layout>
 <h1>New book</h1>
 
 <form action="{{ route('books.store') }}" method="post">
@@ -20,3 +21,4 @@
 
     <input type="submit" value="Create">
 </form>
+</x-layout>
